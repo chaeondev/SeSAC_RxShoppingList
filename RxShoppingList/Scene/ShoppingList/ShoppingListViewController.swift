@@ -88,8 +88,27 @@ class ShoppingListViewController: UIViewController {
                     .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
+        
+        // 수정
+        Observable.zip(tableView.rx.itemSelected, tableView.rx.modelSelected(ShoppingItem.self))
+            .subscribe(with: self) { owner, value in
+                let indexPath = value.0
+                let item = value.1
+                
+                let vc = EditViewController()
+                vc.textField.rx.text
+                    .onNext(item.title)
+                vc.completionHandler = { text in
+                    owner.data[indexPath.row].title = text
+                    owner.items.onNext(owner.data)
+                }
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+
     }
     
+    // 추가
     func addItem() {
         addButton.rx.tap
             .withLatestFrom(searchBar.rx.text.orEmpty) { _, text in

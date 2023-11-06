@@ -20,6 +20,7 @@
 		DE12A7FC2AF8CB8300136764 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DE12A7FB2AF8CB8300136764 /* RxCocoa */; };
 		DE12A7FE2AF8CB8300136764 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = DE12A7FD2AF8CB8300136764 /* RxRelay */; };
 		DE12A8032AF8DBFD00136764 /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12A8022AF8DBFD00136764 /* ShoppingItem.swift */; };
+		DE12A8062AF9526E00136764 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12A8052AF9526E00136764 /* EditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		DE12A7F12AF8C6C300136764 /* ShoppingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewModel.swift; sourceTree = "<group>"; };
 		DE12A7F32AF8C6EC00136764 /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
 		DE12A8022AF8DBFD00136764 /* ShoppingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
+		DE12A8052AF9526E00136764 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		DE12A7FF2AF8DBD100136764 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DE12A8042AF9525D00136764 /* Edit */,
 				DE12A7EE2AF8C6A100136764 /* ShoppingList */,
 			);
 			path = Scene;
@@ -114,6 +117,14 @@
 				DE12A8022AF8DBFD00136764 /* ShoppingItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DE12A8042AF9525D00136764 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				DE12A8052AF9526E00136764 /* EditViewController.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE12A8062AF9526E00136764 /* EditViewController.swift in Sources */,
 				DE12A7F02AF8C6B800136764 /* ShoppingListViewController.swift in Sources */,
 				DE12A7DF2AF8C5E400136764 /* ViewController.swift in Sources */,
 				DE12A7DB2AF8C5E400136764 /* AppDelegate.swift in Sources */,
