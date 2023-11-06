@@ -60,10 +60,11 @@ class ShoppingListViewController: UIViewController {
         configure()
         setConstraints()
         
-        bind()
+        bindTableView()
+        addItem()
     }
     
-    func bind() {
+    func bindTableView() {
         items
             .bind(to: tableView.rx.items(cellIdentifier: ShoppingListTableViewCell.identifier, cellType: ShoppingListTableViewCell.self)) { (row, element, cell) in
                 cell.configureCell(item: element)
@@ -87,6 +88,34 @@ class ShoppingListViewController: UIViewController {
                     .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func addItem() {
+        addButton.rx.tap
+            .withLatestFrom(searchBar.rx.text.orEmpty) { _, text in
+                return text
+            }
+            .subscribe(with: self) { owner, text in
+                if text.isEmpty {
+                    owner.alertMessage(title: "추가할 품목을 적어주세요!")
+                } else {
+                    let item = ShoppingItem(title: text, completed: false, favorite: false)
+                    owner.data.insert(item, at: 0)
+                    owner.items.onNext(owner.data)
+                    owner.searchBar.rx.text.onNext("")
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        //추가하고 나서는 검색창 텍스트 지워주기 -> 어떻게?
+        //-> searchBar에 onNext로 보냈는데..맞는지는 모르겠음..
+    }
+    
+    private func alertMessage(title: String, message: String = "") {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okay = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okay)
+        present(alert, animated: true)
     }
     
     private func configure() {
