@@ -62,9 +62,12 @@ class ShoppingListViewController: UIViewController {
         
         bindTableView()
         addItem()
+        searchItem()
     }
     
     func bindTableView() {
+        
+        //cellForRowAt
         items
             .bind(to: tableView.rx.items(cellIdentifier: ShoppingListTableViewCell.identifier, cellType: ShoppingListTableViewCell.self)) { (row, element, cell) in
                 cell.configureCell(item: element)
@@ -136,6 +139,20 @@ class ShoppingListViewController: UIViewController {
         
         //추가하고 나서는 검색창 텍스트 지워주기 -> 어떻게?
         //-> searchBar에 onNext로 보냈는데..맞는지는 모르겠음..
+    }
+    
+    //실시간 검색
+    func searchItem() {
+        searchBar.rx.text.orEmpty
+            .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .subscribe(with: self) { owner, text in
+                
+                let result = (text == "") ? owner.data : owner.data.filter { $0.title.contains(text) }
+                owner.items.onNext(result)
+                
+            }
+            .disposed(by: disposeBag)
     }
     
     private func alertMessage(title: String, message: String = "") {
