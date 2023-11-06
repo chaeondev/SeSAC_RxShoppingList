@@ -106,6 +106,14 @@ class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        //삭제 -> itemDeleted -> 스와이프 삭제
+        tableView.rx.itemDeleted
+            .subscribe(with: self) { owner, indexPath in
+                owner.data.remove(at: indexPath.row)
+                owner.items.onNext(owner.data)
+            }
+            .disposed(by: disposeBag)
+
     }
     
     // 추가
