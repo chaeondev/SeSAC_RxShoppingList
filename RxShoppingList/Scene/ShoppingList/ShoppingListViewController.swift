@@ -67,6 +67,24 @@ class ShoppingListViewController: UIViewController {
         items
             .bind(to: tableView.rx.items(cellIdentifier: ShoppingListTableViewCell.identifier, cellType: ShoppingListTableViewCell.self)) { (row, element, cell) in
                 cell.configureCell(item: element)
+                
+                cell.checkButton.rx.tap
+                    .subscribe(with: self) { owner, _ in
+                        var item = owner.data[row]
+                        item.completed.toggle()
+                        owner.data[row] = item
+                        owner.items.onNext(owner.data)
+                    }
+                    .disposed(by: cell.disposeBag)
+                
+                cell.starButton.rx.tap
+                    .subscribe(with: self) { owner, _ in
+                        var item = owner.data[row]
+                        item.favorite.toggle()
+                        owner.data[row] = item
+                        owner.items.onNext(owner.data)
+                    }
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
     }
